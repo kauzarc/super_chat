@@ -20,13 +20,13 @@
     socket.emit("pseudo", pseudo);
 
     socket.on("message", function (message) {
-      console.log(message);
+      console.log(message.author + ": " + message.message);
     })
 
     var form = document.getElementById("form");
     var text_box = document.getElementById("text_box");
     form.addEventListener("submit", function (event) {
-      socket.emit("message", text_box.value);
+      socket.emit("message", { message: text_box.value, author: pseudo });
       text_box.value = "";
       event.preventDefault();
     });

@@ -15,15 +15,15 @@ const io = require("socket.io").listen(server);
 
 function send_message(message) {
   io.sockets.emit("message", message);
-  console.log("Message emited: " + message);
+  console.log("Message emited from " + message.author + ": " + message.message);
 }
 
 io.sockets.on("connection", function (socket) {
-  console.log("Connection");
+  console.log("new connection");
 
   socket.on("pseudo", function (pseudo) {
     socket.pseudo = pseudo;
-    send_message(pseudo + " is connected");
+    send_message({ message: pseudo + " is connected", author: "server" });
   })
 
   socket.on("message", send_message);
