@@ -8,6 +8,12 @@
 
 <body>
   <h1>Welcome to the Super-Chat</h1>
+  <table>
+    <thead>
+      <tr>Chat </tr>
+    </thead>
+    <tbody id="chat"> </tbody>
+  </table>
   <form id="form">
     <label>Vos message :</label>
     <input type="text" id="text_box">
@@ -19,8 +25,11 @@
     var pseudo = prompt("You must chose a pseudo");
     socket.emit("pseudo", pseudo);
 
+    var chat = document.getElementById("chat");
     socket.on("message", function (message) {
-      console.log(message.author + ": " + message.message);
+      var tr = document.createElement("tr");
+      tr.innerHTML = message.author + ": " + message.message;
+      chat.appendChild(tr);
     })
 
     var form = document.getElementById("form");
