@@ -8,11 +8,28 @@
 
 <body>
   <h1>Welcome to the Super-Chat</h1>
+  <form id="form">
+    <label>Vos message :</label>
+    <input type="text" id="text_box">
+    <input type="submit">
+  </form>
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect("http://localhost:8080/");
     var pseudo = prompt("You must chose a pseudo");
     socket.emit("pseudo", pseudo);
+
+    socket.on("message", function (message) {
+      console.log(message);
+    })
+
+    var form = document.getElementById("form");
+    var text_box = document.getElementById("text_box");
+    form.addEventListener("submit", function (event) {
+      socket.emit("message", text_box.value);
+      text_box.value = "";
+      event.preventDefault();
+    });
   </script>
 </body>
 

@@ -13,11 +13,18 @@ var server = app.listen(8080, function () {
 
 const io = require("socket.io").listen(server);
 
+function send_message(message) {
+  io.sockets.emit("message", message);
+  console.log("Message emited: " + message);
+}
+
 io.sockets.on("connection", function (socket) {
   console.log("Connection");
 
   socket.on("pseudo", function (pseudo) {
     socket.pseudo = pseudo;
-    console.log(pseudo + " logged");
+    send_message(pseudo + " is connected");
   })
+
+  socket.on("message", send_message);
 });
