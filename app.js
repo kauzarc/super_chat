@@ -11,8 +11,9 @@ app.use(function (req, res, next) {
   res.redirect("/");
 });
 
-var server = app.listen(8080, function () {
-  console.log("Listening on port 8080");
+const PORT = process.env.PORT || 8080;
+var server = app.listen(PORT, function () {
+  console.log("Listening on port " + PORT);
 });
 
 const io = require("socket.io").listen(server);
