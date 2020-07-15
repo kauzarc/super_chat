@@ -31,7 +31,7 @@
   </form>
   <script src="/socket.io/socket.io.js"></script>
   <script>
-    var socket = io.connect("http://localhost:8080/");
+    var socket = io.connect("https://super-chat-kauzarc.herokuapp.com/", );
     var pseudo = prompt("You must chose a pseudo");
     socket.emit("pseudo", pseudo);
 
